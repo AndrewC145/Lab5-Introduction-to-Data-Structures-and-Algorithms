@@ -26,28 +26,39 @@ public class DoublyList implements DoublyLinkedList {
 
     @Override
     public void addFirst(Object data) {
+        if (data == null) {
+            throw new NullPointerException();
+        }
+
         Node newNode = new Node(data);
 
         if (head == null) {
             head = newNode;
             tail = newNode;
-            size++;
         }
         else {
             newNode.next = head;
             head.prev = newNode;
             head = newNode;
-            size++;
         }
+        size++;
 
     }
 
     @Override
     public void addLast(Object data) {
+        if (data == null) {
+            throw new NullPointerException();
+        }
         Node newNode = new Node(data);
 
+        if (tail == null) {
+            head = newNode;
+            tail = newNode;
+        }
+
         tail.next = newNode;
-        tail.prev = newNode;
+        newNode.prev = tail;
         tail = newNode;
         size++;
     }
@@ -57,24 +68,33 @@ public class DoublyList implements DoublyLinkedList {
         if (index < 0 || index > size) {
             throw new IndexOutOfBoundsException();
         }
-        if (index == 1) {
+
+        if (data == null) {
+            throw new NullPointerException();
+        }
+        if (index == 0) {
             addFirst(data);
             return;
         }
 
-        int count = 0;
+        if (index == size) {
+            addLast(data);
+            return;
+        }
+
+
         Node newNode = new Node(data);
         Node curr = head;
 
-        while (curr != null && count < index) {
+        for (int i = 0; i < index; i++) {
             curr = curr.next;
-            count++;
         }
 
         newNode.next = curr;
         newNode.prev = curr.prev;
         curr.prev.next = newNode;
         curr.prev = newNode;
+        size++;
 
     }
 
@@ -111,6 +131,14 @@ public class DoublyList implements DoublyLinkedList {
         if (index < 0 || index > size) {
             throw new IndexOutOfBoundsException();
         }
+
+        if (index == 0) {
+            return removeFirst();
+        }
+        else if (index == size) {
+            return removeLast();
+        }
+
         int count = 0;
         Node curr = head;
 
@@ -175,6 +203,9 @@ public class DoublyList implements DoublyLinkedList {
 
     @Override
     public boolean contains(Object data) {
+        if (data == null || size == 0) {
+            throw new NullPointerException();
+        }
         Node curr = head;
 
         while (curr != null) {
@@ -188,6 +219,9 @@ public class DoublyList implements DoublyLinkedList {
 
     @Override
     public int indexOf(Object data) {
+        if (data == null || size == 0) {
+            throw new NullPointerException();
+        }
         Node curr = head;
         int index = 0;
 
