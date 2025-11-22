@@ -28,10 +28,17 @@ public class DoublyList implements DoublyLinkedList {
     public void addFirst(Object data) {
         Node newNode = new Node(data);
 
-        newNode.next = head.next;
-        newNode.prev = head;
-        head = newNode;
-        size++;
+        if (head == null) {
+            head = newNode;
+            tail = newNode;
+            size++;
+        }
+        else {
+            newNode.next = head;
+            head.prev = newNode;
+            head = newNode;
+            size++;
+        }
 
     }
 
@@ -39,9 +46,9 @@ public class DoublyList implements DoublyLinkedList {
     public void addLast(Object data) {
         Node newNode = new Node(data);
 
-        newNode.prev = tail.prev;
+        tail.next = newNode;
         tail.prev = newNode;
-        newNode.next = tail;
+        tail = newNode;
         size++;
     }
 
@@ -50,27 +57,30 @@ public class DoublyList implements DoublyLinkedList {
         if (index < 0 || index > size) {
             throw new IndexOutOfBoundsException();
         }
+        if (index == 1) {
+            addFirst(data);
+            return;
+        }
+
         int count = 0;
         Node newNode = new Node(data);
         Node curr = head;
 
-        while (curr.next != null) {
-            if (count == index) {
-                Node next = curr.next;
-                next.prev = newNode;
-                newNode.next = next;
-                curr.next = newNode;
-                newNode.prev = curr;
-            }
-            count++;
+        while (curr != null && count < index) {
             curr = curr.next;
+            count++;
         }
+
+        newNode.next = curr;
+        newNode.prev = curr.prev;
+        curr.prev.next = newNode;
+        curr.prev = newNode;
 
     }
 
     @Override
     public Object removeFirst() {
-        if (size == 0) {
+        if (size == 0 || head == null) {
             throw new NoSuchElementException();
         }
 
@@ -88,11 +98,11 @@ public class DoublyList implements DoublyLinkedList {
             throw new NoSuchElementException();
         }
 
-        Node last = tail.prev;
-        Node lastPrev = last.prev;
-        lastPrev.next = tail;
+        Node last = tail;
+        tail = tail.prev;
+        tail.next = null;
         last.prev = null;
-        last.next = null;
+        size--;
         return last.data;
     }
 
@@ -104,23 +114,20 @@ public class DoublyList implements DoublyLinkedList {
         int count = 0;
         Node curr = head;
 
-        while (curr.next != null) {
-            if (count == index) {
-                Node next = curr.next;
-                Node prev = curr.prev;
-
-                prev.next = next;
-                next.prev = prev;
-
-                curr.next = null;
-                curr.prev = null;
-                return curr.data;
-            }
-
-            count++;
+        while (curr != null && count < index) {
             curr = curr.next;
+            count++;
         }
-        return null;
+
+        Node prev = curr.prev;
+        prev.next = curr.next;
+        curr.next.prev = prev;
+
+        curr.next = null;
+        curr.prev = null;
+        size--;
+
+        return curr.data;
     }
 
     @Override
@@ -138,15 +145,14 @@ public class DoublyList implements DoublyLinkedList {
         int count = 0;
 
         Node curr = head;
-
-        while (curr.next != null) {
-            if (count == index) {
-                return curr.data;
-            }
-            count++;
+        while (curr != null && count < index) {
             curr = curr.next;
+            count++;
         }
 
+        if (curr != null) {
+            return curr.data;
+        }
         return null;
     }
 
@@ -165,33 +171,32 @@ public class DoublyList implements DoublyLinkedList {
         head = null;
         tail = null;
         size = 0;
-
     }
 
     @Override
     public boolean contains(Object data) {
         Node curr = head;
 
-        while (curr.next != null) {
+        while (curr != null) {
             if (curr.data.equals(data)) {
                 return true;
             }
             curr = curr.next;
         }
-
         return false;
     }
 
     @Override
     public int indexOf(Object data) {
         Node curr = head;
-        int count = 0;
-        while (curr.next != null) {
+        int index = 0;
+
+        while (curr != null) {
             if (curr.data.equals(data)) {
-                return count;
+                return index;
             }
-            count++;
             curr = curr.next;
+            index++;
         }
 
         return -1;
