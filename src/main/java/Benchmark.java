@@ -1,19 +1,16 @@
-package org.example;
 
 public class Benchmark {
 
-    // Helper: create a list with n elements
     private static DoublyLinkedList<Integer> buildList(int n) {
-        DoublyLinkedList<Integer> list = new DoublyList<>();
+        DoublyLinkedList<Integer> list = new DoublyList();
         for (int i = 0; i < n; i++) {
             list.addLast(i);
         }
         return list;
     }
 
-    // Benchmark insertion at the tail
     private static long benchmarkInsert(int n) {
-        DoublyLinkedList<Integer> list = new DoublyList<>();
+        DoublyLinkedList<Integer> list = new DoublyList();
 
         long start = System.nanoTime();
         for (int i = 0; i < n; i++) {
@@ -24,7 +21,6 @@ public class Benchmark {
         return end - start;
     }
 
-    // Benchmark searching for all items
     private static long benchmarkSearch(int n) {
         DoublyLinkedList<Integer> list = buildList(n);
 
@@ -37,7 +33,6 @@ public class Benchmark {
         return end - start;
     }
 
-    // Benchmark accessing every element
     private static long benchmarkAccess(int n) {
         DoublyLinkedList<Integer> list = buildList(n);
 
@@ -50,7 +45,6 @@ public class Benchmark {
         return end - start;
     }
 
-    // Benchmark removing all items from the front
     private static long benchmarkRemove(int n) {
         DoublyLinkedList<Integer> list = buildList(n);
 
