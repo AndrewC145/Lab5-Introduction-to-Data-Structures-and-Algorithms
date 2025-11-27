@@ -2,6 +2,7 @@ import java.util.NoSuchElementException;
 
 public class DoublyList implements DoublyLinkedList {
 
+    // Node class for the linked list
     static class Node<T> {
         T data;
         Node<T> next;
@@ -18,12 +19,17 @@ public class DoublyList implements DoublyLinkedList {
     Node tail;
     int size;
 
+    // Doubly Linked list constructor
     public DoublyList() {
         head = null;
         tail = null;
         size = 0;
     }
 
+    /**
+     * Add an element to the front of the linked list
+     * @param data The element to be added
+     */
     @Override
     public void addFirst(Object data) {
         if (data == null) {
@@ -45,6 +51,10 @@ public class DoublyList implements DoublyLinkedList {
 
     }
 
+    /**
+     * Add an element to the rear of the linked list
+     * @param data The element to be added
+     */
     @Override
     public void addLast(Object data) {
         if (data == null) {
@@ -63,6 +73,11 @@ public class DoublyList implements DoublyLinkedList {
         size++;
     }
 
+    /**
+     * Insert an element into the linked list at an index
+     * @param index The index to be added at
+     * @param data The item to be added
+     */
     @Override
     public void insertAt(int index, Object data) {
         if (index < 0 || index > size) {
@@ -98,6 +113,10 @@ public class DoublyList implements DoublyLinkedList {
 
     }
 
+    /**
+     * Remove the first element of the linked list
+     * @return Object, the element that was removed
+     */
     @Override
     public Object removeFirst() {
         if (size == 0 || head == null) {
@@ -112,6 +131,11 @@ public class DoublyList implements DoublyLinkedList {
         return curr.data;
     }
 
+
+    /**
+     * Remove the last element of the linked list
+     * @return Object, the element that was removed
+     */
     @Override
     public Object removeLast() {
         if (size == 0) {
@@ -126,6 +150,11 @@ public class DoublyList implements DoublyLinkedList {
         return last.data;
     }
 
+    /**
+     * Remove an element at an index
+     * @param index The index to remove at
+     * @return Object, the element that was removed
+     */
     @Override
     public Object removeAt(int index) {
         if (index < 0 || index > size) {
@@ -158,16 +187,29 @@ public class DoublyList implements DoublyLinkedList {
         return curr.data;
     }
 
+    /**
+     * Get the first element
+     * @return Object, the first element
+     */
     @Override
     public Object getFirst() {
         return head.data;
     }
 
+    /**
+     * Get the last element
+     * @return Object, the last element
+     */
     @Override
     public Object getLast() {
         return tail.data;
     }
 
+    /**
+     * Get the element at a given index
+     * @param index The index to search for
+     * @return Object, the element at the index
+     */
     @Override
     public Object getAt(int index) {
         int count = 0;
@@ -184,16 +226,27 @@ public class DoublyList implements DoublyLinkedList {
         return null;
     }
 
+    /**
+     * Get the size of the linked list
+     * @return size
+     */
     @Override
     public int size() {
         return size;
     }
 
+    /**
+     * Check if the linked list is empty
+     * @return boolean
+     */
     @Override
     public boolean isEmpty() {
         return size == 0;
     }
 
+    /**
+     * Delete the linked list
+     */
     @Override
     public void clear() {
         head = null;
@@ -201,6 +254,11 @@ public class DoublyList implements DoublyLinkedList {
         size = 0;
     }
 
+    /**
+     * Check if the linked list contains data
+     * @param data The element to search for
+     * @return boolean
+     */
     @Override
     public boolean contains(Object data) {
         if (data == null || size == 0) {
@@ -217,6 +275,11 @@ public class DoublyList implements DoublyLinkedList {
         return false;
     }
 
+    /**
+     * Get the index of element data
+     * @param data The element to search for
+     * @return int
+     */
     @Override
     public int indexOf(Object data) {
         if (data == null || size == 0) {
