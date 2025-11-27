@@ -1,5 +1,10 @@
 import java.util.NoSuchElementException;
 
+/**
+ * A doubly linked list implementation that allows for insertion, deletion,
+ * retrieving elements at specific index, keeping track of size, and deleting
+ * the linked list.
+ */
 public class DoublyList implements DoublyLinkedList {
 
     // Node class for the linked list
