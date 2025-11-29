@@ -1,5 +1,7 @@
 # Lab5-Introduction-to-Data-Structures-and-Algorithms
 
+## video reflection
+[![lab 5](https://img.youtube.com/vi/VRa-rQL52nk/0.jpg)](youtube.com/watch?v=VRa-rQL52nk)
 
 1. Benchmark Overview
 
